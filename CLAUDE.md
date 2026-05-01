@@ -37,12 +37,18 @@ MyConsiderations/
 ├── CLAUDE.md           ← このファイル（プロジェクトのメタ情報）
 ├── README.md           ← GitHub用説明
 ├── update.bat          ← コミット＋push＋gh-deploy のワンクリック実行
+├── .gitignore          ← site/, __pycache__/, _archive/ を除外
 ├── hooks/
 │   └── generate_archive.py  ← archive.md を自動生成するhook
+├── overrides/
+│   └── main.html       ← Material override（apple-touch-icon等の <head> 追加）
+├── _archive/           ← 公開対象外。原本資料・対話ログ・下書きの置き場
+│                         （.gitignoreで除外、GitHubには上がらない）
 └── docs/               ← MkDocsの docs_dir
     ├── index.md        ← トップページ
     ├── tags.md         ← タグ一覧ページ（自動集計）
     ├── archive.md      ← 日付別アーカイブ（hookで自動生成。手で編集しない）
+    ├── assets/         ← アイコン・manifest.json
     ├── 言語/
     ├── 文学/
     ├── 哲学/
@@ -74,6 +80,14 @@ MyConsiderations/
   ```
 - 「きっかけ → 気づき → 自分なりの解釈」の流れで書く
 - 正解を出す必要はない。考えた過程を残すことが目的
+
+## 原本資料の置き場（_archive/）
+
+まとめる前のChatGPT/Claudeの対話ログ、走り書き、下書き等は `_archive/` に置く。
+
+- 公開対象外（docs_dir の外なのでサイトに含まれない）
+- `.gitignore` で除外されているのでGitHubにも上がらない
+- ローカルのバックアップ目的で保持
 
 ## ローカルで確認するには
 

@@ -28,3 +28,6 @@ node_modules/
 # Local notes (should never be public)
 .tmp_*
 *.log
+
+# Private working folder (raw materials, drafts, chat logs)
+_archive/
