@@ -1,0 +1,98 @@
+# ======================================================================
+# MkDocs 設定ファイル — MyConsiderations（日々の気づき）
+# ----------------------------------------------------------------------
+# ローカル確認 : python -m mkdocs serve     → http://127.0.0.1:8000
+# 本番ビルド   : python -m mkdocs build     → site/ フォルダに成果物
+# GitHub公開   : python -m mkdocs gh-deploy → GitHub Pages に直接公開
+# ======================================================================
+
+site_name: 日々の気づき
+site_description: 現時点での個人的考察・見解・分析（My Considerations）
+site_author: hoehoe
+site_url: https://annachloe2025.github.io/MyConsiderations/
+
+repo_url: https://github.com/annachloe2025/MyConsiderations
+repo_name: annachloe2025/MyConsiderations
+edit_uri: edit/main/docs/
+
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  language: ja
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: deep purple
+      accent: purple
+      toggle:
+        icon: material/weather-night
+        name: ダークモードに切り替え
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: deep purple
+      accent: purple
+      toggle:
+        icon: material/weather-sunny
+        name: ライトモードに切り替え
+  font:
+    text: Noto Sans JP
+    code: JetBrains Mono
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search:
+      lang:
+        - ja
+        - en
+  - tags:
+      tags_file: tags.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+hooks:
+  - hooks/generate_archive.py
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/annachloe2025/MyConsiderations
+
+copyright: "&copy; 2026 hoehoe"
+
+strict: false
+use_directory_urls: true
