@@ -1,0 +1,25 @@
+{
+  "name": "MyConsiderations - 日々の気づき",
+  "short_name": "日々の気づき",
+  "description": "現時点での個人的考察・見解・分析",
+  "start_url": "/MyConsiderations/",
+  "scope": "/MyConsiderations/",
+  "display": "standalone",
+  "background_color": "#5e35b1",
+  "theme_color": "#5e35b1",
+  "lang": "ja",
+  "icons": [
+    {
+      "src": "/MyConsiderations/assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/MyConsiderations/assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

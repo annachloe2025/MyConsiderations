@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ 'assets/icon-16.png' | url }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ 'assets/icon-32.png' | url }}">
+  <link rel="icon" type="image/png" sizes="48x48" href="{{ 'assets/icon-48.png' | url }}">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ 'assets/apple-touch-icon.png' | url }}">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="日々の気づき">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <link rel="manifest" href="{{ 'assets/manifest.json' | url }}">
+  <meta name="theme-color" content="#5e35b1">
+  <meta name="msapplication-TileColor" content="#5e35b1">
+{% endblock %}

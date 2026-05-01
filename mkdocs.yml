@@ -20,7 +20,9 @@ site_dir: site
 
 theme:
   name: material
+  custom_dir: overrides
   language: ja
+  favicon: assets/favicon.ico
   features:
     - navigation.instant
     - navigation.tracking
