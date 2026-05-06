@@ -11,14 +11,38 @@
     utterance: null,
   };
 
+  // 読み上げ対象から除外するセレクタ
+  const EXCLUDE_SELECTORS = [
+    'ul.md-tags',                  // タグ一覧（記事冒頭）
+    'nav.md-tags',                 // タグナビ
+    '.md-tag',                     // 個別のタグチップ
+    '.md-source-file',             // ソースファイル情報
+    '.md-source-file__action',     // 編集リンクなどのアクション
+    '.md-content__button',         // 編集ボタン
+    'a.headerlink',                // 見出しの # アンカー
+    '.headerlink',
+    '.md-typeset__scrollwrap',     // 横スクロール用の包み
+    'details summary',             // 折りたたみのサマリは飛ばさない方がいいか…一旦は読む
+    '.md-feedback',                // ページフィードバック
+    '.md-source-date',             // 最終更新日表示
+  ];
+
   function getArticleText() {
-    // Material for MkDocs の本文領域を取得
     const article = document.querySelector('article.md-content__inner') ||
-                    document.querySelector('article') ||
-                    document.querySelector('main');
+                    document.querySelector('article');
     if (!article) return '';
-    // タイトルから本文末尾までを読み上げ対象に
-    return article.innerText.trim();
+
+    // クローンして元のDOMを汚さずに不要要素を取り除く
+    const clone = article.cloneNode(true);
+
+    EXCLUDE_SELECTORS.forEach(sel => {
+      clone.querySelectorAll(sel).forEach(el => el.remove());
+    });
+
+    // detail要素のsummaryは残してdetailsの中身は読む（折りたたみ全展開扱い）
+    // 実装上は何もしなくても innerText が中身を返すのでOK
+
+    return clone.innerText.trim();
   }
 
   function stopSpeaking() {
@@ -41,7 +65,6 @@
       return;
     }
 
-    // 既に再生中なら停止
     stopSpeaking();
 
     const utt = new SpeechSynthesisUtterance(text);
@@ -67,7 +90,6 @@
     STATE.paused = false;
 
     // iOS Safari は voiceschanged の後でないと日本語音声が選ばれないことがある
-    // 少し遅らせてから speak する
     window.speechSynthesis.cancel();
     setTimeout(() => {
       window.speechSynthesis.speak(utt);
@@ -97,21 +119,12 @@
   let stopBtn = null;
 
   function createButton() {
-    // 既存のボタンを削除（navigation.instant でページ遷移したとき用）
     const existing = document.getElementById('tts-container');
     if (existing) existing.remove();
 
     const article = document.querySelector('article.md-content__inner') ||
                     document.querySelector('article');
     if (!article) return;
-
-    // index.md, tags.md, archive.md にはボタンを出さない
-    const path = window.location.pathname;
-    if (path === '/' || path.endsWith('/MyConsiderations/') ||
-        path.includes('/tags/') || path.includes('/archive/')) {
-      // タグやアーカイブのページは読み上げる意味が薄いのでスキップ
-      // ただし普通の記事ページでは付ける
-    }
 
     const container = document.createElement('div');
     container.id = 'tts-container';
@@ -156,7 +169,6 @@
     createButton();
   }
 
-  // 初回ロード
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
@@ -164,7 +176,6 @@
   }
 
   // Material for MkDocs の navigation.instant 対応
-  // ページが切り替わるたびに再初期化
   if (typeof document$ !== 'undefined' && document$.subscribe) {
     document$.subscribe(() => {
       stopSpeaking();
