@@ -89,6 +89,12 @@ markdown_extensions:
 hooks:
   - hooks/generate_archive.py
 
+extra_javascript:
+  - javascripts/tts.js
+
+extra_css:
+  - stylesheets/tts.css
+
 extra:
   social:
     - icon: fontawesome/brands/github
