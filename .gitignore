@@ -31,3 +31,12 @@ node_modules/
 
 # Private working folder (raw materials, drafts, chat logs)
 _archive/
+
+# 動画 / 音声（YouTube アップロード用、git に乗せない）
+youtube/
+音声/
+
+# OAuth 認証情報（絶対に git に上げない）
+client_secrets.json
+.youtube_token*.json
+.credentials/
